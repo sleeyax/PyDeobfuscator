@@ -1,0 +1,1 @@
+from .basedeobfuscator import BaseDeobfuscator
