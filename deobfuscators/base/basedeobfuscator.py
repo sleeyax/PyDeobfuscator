@@ -11,3 +11,7 @@ class BaseDeobfuscator(ABC):
 
     def add_argument(self, *args, **kwargs):
         self.arguments.append([args, kwargs])
+
+    @abstractmethod
+    def deobfuscate(self, input_file, output_file):
+        pass
