@@ -10,4 +10,5 @@ class IntensioDeobfuscator(BaseDeobfuscator):
         self.set_arguments()
 
     def set_arguments(self):
-        self.add_argument('-p', '--padding', help='remove padding', action='store_true', default=False)
+        self.add_argument('--keep-padding', help='do not remove padding', action='store_true', default=False)
+        self.add_argument('--keep-vars', help='keep obfuscated variable names', action='store_true', default=False)
