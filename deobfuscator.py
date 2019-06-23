@@ -12,10 +12,6 @@ if not os.path.exists(args.input):
     error('directory \'{0}\' does not exist!'.format(args.input))
     sys.exit(0)
 
-# give every deobfuscator access to the parsed arguments
-for deobfuscator in deobfuscators:
-    deobfuscator.arguments_parsed = args
-
 # recursively create output directories
 output_dir = os.path.dirname(args.output)
 if not os.path.exists(output_dir):
