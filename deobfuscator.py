@@ -12,12 +12,6 @@ if not os.path.exists(args.input):
     error('directory or file \'{0}\' does not exist!'.format(args.input))
     sys.exit(0)
 
-# recursively create output directories
-output_dir = os.path.dirname(args.output)
-if not os.path.exists(output_dir):
-    info('creating output directories...')
-    os.makedirs(output_dir)
-
 # recursively read all files in the input dir to an array
 input_files = [f for f in glob.glob('{0}/**/*.py'.format(args.input.rstrip('/')), recursive=True)] \
     if os.path.isdir(args.input) \
@@ -29,4 +23,10 @@ deobfuscator.arguments_parsed = args
 
 for input_file in input_files:
     output_file = input_file.replace(args.input, args.output)
+
+    # recursively create output directories
+    output_dir = os.path.dirname(output_file)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+
     deobfuscator.deobfuscate(input_file, output_file)
