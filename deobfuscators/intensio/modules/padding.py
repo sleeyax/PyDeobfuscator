@@ -28,8 +28,8 @@ class Padding(BaseModule):
         if matches:
             trash = matches.group(1)
             if trash not in self.trash:
-                self.current_line_is_trash = True
                 self.trash.append(trash)
+            self.current_line_is_trash = True
             return None
 
         # remove stray code from output
