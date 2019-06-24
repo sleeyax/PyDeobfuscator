@@ -20,6 +20,7 @@ class Padding(BaseModule):
         # remove the line from output when it matches a fake variable
         matches = [t for t in self.trash if t in line]
         if len(matches) > 0:
+            self.current_line_is_trash = True
             return None
 
         # if this line declares a fake variable, add it to the list & remove it from output
