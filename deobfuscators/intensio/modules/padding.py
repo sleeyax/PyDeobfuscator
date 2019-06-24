@@ -8,6 +8,7 @@ class Padding(BaseModule):
         self.length_levels = [32, 64, 128]
         self.pattern = self.build_pattern(self.length_levels)
         self.trash = []
+        self.current_line_is_trash = False
 
     def build_pattern(self, length_levels):
         parts = ['[a-zA-Z]{' + str(l) + '}' for l in length_levels]
@@ -26,8 +27,15 @@ class Padding(BaseModule):
         if matches:
             trash = matches.group(1)
             if trash not in self.trash:
+                self.current_line_is_trash = True
                 self.trash.append(trash)
             return None
 
+        # remove stray code from output
+        if 'else:' in line and self.current_line_is_trash is True:
+            self.current_line_is_trash = False
+            return None
+
         # return line if it does not contain any signs of padding
+        self.current_line_is_trash = False
         return line
