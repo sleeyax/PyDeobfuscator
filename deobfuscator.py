@@ -9,7 +9,7 @@ debug(args)
 
 # exit if input file or directory doesn't exist
 if not os.path.exists(args.input):
-    error('directory \'{0}\' does not exist!'.format(args.input))
+    error('directory or file \'{0}\' does not exist!'.format(args.input))
     sys.exit(0)
 
 # recursively create output directories
