@@ -26,12 +26,15 @@ class IntensioDeobfuscator(BaseDeobfuscator):
 
     def deobfuscate(self, input_file, output_file):
         modules = self.load_modules()
-        # TODO: use modules to deobfuscate file
         with open(input_file, 'r') as file:
             with open(output_file, 'w') as output:
                 for line in file:
                     line = line.rstrip('\n')
-                    print(line)
-                    output.write(line + '\n')
+                    for module in modules:
+                        line = module.process(line)
+                        if line is None:
+                            break
+                    if line is not None:
+                        output.write(line + '\n')
 
         info('{0} -> {1}'.format(input_file, output_file))
