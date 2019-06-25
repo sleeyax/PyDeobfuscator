@@ -1,5 +1,5 @@
 from deobfuscators import BaseDeobfuscator
-from .modules import Padding
+from .modules import Padding, Declarations
 from logger import info
 
 
@@ -20,15 +20,15 @@ class IntensioDeobfuscator(BaseDeobfuscator):
         if not self.get_argument_value('keep-padding'):
             modules.append(Padding())
         if not self.get_argument_value('keep-vars'):
-            # TODO: create vars module
+            modules.append(Declarations())
             pass
         return modules
 
     def deobfuscate(self, input_file, output_file):
         modules = self.load_modules()
-        with open(input_file, 'r') as file:
+        with open(input_file, 'r') as input:
             with open(output_file, 'w') as output:
-                for line in file:
+                for line in input:
                     line = line.rstrip('\n')
                     for module in modules:
                         line = module.process(line)
