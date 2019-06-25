@@ -14,9 +14,9 @@ class BaseDeobfuscator(ABC):
         self.arguments.append([args, kwargs])
 
     def get_argument_value(self, argument: str):
-        arg_name = '{0}_{1}'.format(self.argument_id.replace('-', '_'), argument.lstrip('-').replace('-', '_'))
+        arg_name = '{0}_{1}'.format(self.argument_id, argument.lstrip('-')).replace('-', '_')
         return getattr(self.arguments_parsed, arg_name)
 
     @abstractmethod
-    def deobfuscate(self, input_file, output_file):
+    def deobfuscate(self, input_file: str, output_file: str):
         pass
