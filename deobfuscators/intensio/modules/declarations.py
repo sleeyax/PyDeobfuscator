@@ -13,6 +13,7 @@ class Declarations(BaseModule):
         self.for_loops = {}
 
     def detect_declaration(self, line: str, pattern: str, collection: dict, keyword: str, auto_format: bool = True):
+        line = line.strip()
         if auto_format:
             pattern = pattern.format(self.characters_to_match)
         match = re.match(pattern, line)
@@ -21,7 +22,18 @@ class Declarations(BaseModule):
             collection[match.group(1)] = keyword + str(count)
 
     def detect_variable_declaration(self, line: str):
-        self.detect_declaration(line, '^({0})\\s*=', self.variables, 'var')
+        line = line.strip()
+
+        # check if multiple vars are defined (a, b = 'c', 'd')
+        if re.match('{0}\\s*,'.format(self.characters_to_match), line) and '=' in line:
+            match = re.match(r'(.+?)=', line)
+            variables = match.group(1).split(',')
+            for variable in variables:
+                self.detect_declaration(variable, '({0})', self.variables, 'var')
+
+        # single variable declaration (a = 'b')
+        else:
+            self.detect_declaration(line, '({0})\\s*=', self.variables, 'var')
 
     def detect_class_declaration(self, line: str):
         self.detect_declaration(line, 'class\\s+({0}?)(?:\\(|:)', self.classes, 'Class')
