@@ -1,34 +1,30 @@
 import re
 
 from .basemodule import BaseModule
+from ..helpers import build_length_levels_pattern
 
 
 class Padding(BaseModule):
     def __init__(self):
-        self.length_levels = [32, 64, 128]
-        self.pattern = self.build_pattern(self.length_levels)
-        self.trash = []
+        self.trashbin = []
         self.current_line_is_trash = False
 
-    def build_pattern(self, length_levels):
-        parts = ['[a-zA-Z]{' + str(l) + '}' for l in length_levels]
-        level_pattern = '|'.join(parts)
-        # ((?:[a-zA-Z]{32}|[a-zA-Z]{64}|[a-zA-Z]{128})) = (?:'|\")(?:[a-zA-Z]{32}|[a-zA-Z]{64}|[a-zA-Z]{128})(?:'|\")
-        return r"((?:" + level_pattern + ")) = (?:'|\")(?:" + level_pattern + ")(?:'|\")"
-
-    def process(self, line: str):
-        # remove the line from output when it matches a fake variable
-        matches = [t for t in self.trash if t in line]
-        if len(matches) > 0:
-            self.current_line_is_trash = True
-            return None
-
-        # if this line declares a fake variable, add it to the list & remove it from output
-        matches = re.search(self.pattern, line)
+    def detect_padding(self, line: str):
+        level_pattern = build_length_levels_pattern([32, 64, 128])
+        pattern = r"({0}) = (?:'|\"){0}(?:'|\")".format(level_pattern)
+        matches = re.search(pattern, line)
         if matches:
             trash = matches.group(1)
-            if trash not in self.trash:
-                self.trash.append(trash)
+            if trash not in self.trashbin:
+                self.trashbin.append(trash)
+            self.current_line_is_trash = True
+
+    def process(self, line: str):
+        # detect start of padding
+        self.detect_padding(line)
+
+        # remove the line from output when it matches a fake variable
+        if any(t in line for t in self.trashbin):
             self.current_line_is_trash = True
             return None
 
