@@ -12,6 +12,7 @@ class Declarations(BaseModule):
         self.classes = {}
         self.methods = {}
         self.for_loops = {}
+        self.method_arguments = {}
 
     def detect_declaration(self, line: str, pattern: str, collection: dict, keyword: str, auto_format: bool = True):
         line = line.strip()
@@ -51,14 +52,22 @@ class Declarations(BaseModule):
             for module in modules:
                 self.detect_declaration(module, '({0})', self.modules, 'module')
 
+    def detect_method_arguments(self, line: str):
+        match = re.search(r'def\s*[a-zA-Z_][a-zA-Z0-9_]*\s*\((.+)\)', line)
+        if match:
+            args = match.group(1).split(',')
+            for arg in args:
+                self.detect_declaration(arg, '({0})', self.method_arguments, 'arg')
+
     def process(self, line: str):
         self.detect_variable_declaration(line)
         self.detect_class_declaration(line)
         self.detect_method_declaration(line)
+        self.detect_method_arguments(line)
         self.detect_for_loop_declaration(line)
         self.detect_modules(line)
 
-        collections = [self.variables, self.classes, self.methods, self.for_loops, self.modules]
+        collections = [self.modules, self.classes, self.methods, self.method_arguments, self.variables, self.for_loops]
         for collection in collections:
             for key, value in collection.items():
                 line = line.replace(key, value)
