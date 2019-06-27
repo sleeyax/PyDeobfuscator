@@ -5,7 +5,7 @@ from loader import args
 from modules import deobfuscators
 from logger import error, info, debug, header
 
-print("""
+print("""\033[92m
   _____       _____             _      __                     _             
  |  __ \     |  __ \           | |    / _|                   | |            
  | |__) |   _| |  | | ___  ___ | |__ | |_ _   _ ___  ___ __ _| |_ ___  _ __ 
@@ -15,7 +15,7 @@ print("""
          __/ |                                                              
         |___/                                                               
 
-""")
+\033[0m""")
 
 # exit if input file or directory doesn't exist
 if not os.path.exists(args.input):
@@ -28,7 +28,7 @@ input_files = [f for f in glob.glob('{0}/**/*.py'.format(args.input.rstrip('/'))
     else [args.input]
 
 deobfuscator = next(d for d in deobfuscators if d.name == args.deobfuscator)
-header('> using {0} deobfuscator <'.format(deobfuscator.name))
+header('> using \033[94m{0}\033[0m deobfuscator <'.format(deobfuscator.name))
 deobfuscator.arguments_parsed = args
 
 # amp input files to output files
