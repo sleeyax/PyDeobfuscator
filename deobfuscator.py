@@ -28,7 +28,7 @@ input_files = [f for f in glob.glob('{0}/**/*.py'.format(args.input.rstrip('/'))
     else [args.input]
 
 deobfuscator = next(d for d in deobfuscators if d.name == args.deobfuscator)
-header('> using \033[94m{0}\033[0m deobfuscator <'.format(deobfuscator.name))
+header(' using \033[94m{0}\033[0m deobfuscator '.format(deobfuscator.name))
 deobfuscator.arguments_parsed = args
 
 # amp input files to output files
