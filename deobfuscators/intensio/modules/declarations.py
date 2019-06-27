@@ -13,6 +13,7 @@ class Declarations(BaseModule):
         self.methods = {}
         self.for_loops = {}
         self.method_arguments = {}
+        self.exceptions = {}
 
     def detect_declaration(self, line: str, pattern: str, collection: dict, keyword: str, auto_format: bool = True):
         line = line.strip()
@@ -59,6 +60,12 @@ class Declarations(BaseModule):
             for arg in args:
                 self.detect_declaration(arg, '({0})', self.method_arguments, 'arg')
 
+    def detect_exception(self, line: str):
+        if 'except' in line and 'as' in line:
+            exceptions = line.split('as')[1].split(',')
+            for ex in exceptions:
+                self.detect_declaration(ex, '({0})', self.exceptions, 'ex')
+
     def process(self, line: str):
         self.detect_variable_declaration(line)
         self.detect_class_declaration(line)
@@ -66,8 +73,12 @@ class Declarations(BaseModule):
         self.detect_method_arguments(line)
         self.detect_for_loop_declaration(line)
         self.detect_modules(line)
+        self.detect_exception(line)
 
-        collections = [self.modules, self.classes, self.methods, self.method_arguments, self.variables, self.for_loops]
+        collections = [
+            self.modules, self.classes, self.methods, self.method_arguments,
+            self.variables, self.for_loops, self.exceptions
+        ]
         for collection in collections:
             for key, value in collection.items():
                 line = line.replace(key, value)
