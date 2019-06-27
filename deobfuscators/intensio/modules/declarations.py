@@ -58,7 +58,7 @@ class Declarations(BaseModule):
         self.detect_for_loop_declaration(line)
         self.detect_modules(line)
 
-        collections = [self.variables, self.classes, self.methods, self.for_loops]
+        collections = [self.variables, self.classes, self.methods, self.for_loops, self.modules]
         for collection in collections:
             for key, value in collection.items():
                 line = line.replace(key, value)
