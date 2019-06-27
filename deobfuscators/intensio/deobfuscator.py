@@ -1,5 +1,6 @@
 from deobfuscators import BaseDeobfuscator
-from .modules import Padding, Declarations
+from .modules import Padding
+from .modules.declarations import *
 from logger import info
 
 
@@ -19,8 +20,15 @@ class IntensioDeobfuscator(BaseDeobfuscator):
         modules = []
         if not self.get_argument_value('keep-padding'):
             modules.append(Padding())
+
+        # TODO: add options to exclude classes, methods, ...
+        # (--keep-classes, --keep-methods)
         if not self.get_argument_value('keep-vars'):
-            modules.append(Declarations())
+            modules.extend([
+                Variable(), Class(), Method(),
+                Module(), Loop(), Except(),
+                Argument()
+            ])
             pass
         return modules
 
