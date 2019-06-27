@@ -7,6 +7,7 @@ from .basemodule import BaseModule
 class Declarations(BaseModule):
     def __init__(self):
         self.characters_to_match = build_length_levels_pattern([32, 64, 128])
+        self.modules = {}
         self.variables = {}
         self.classes = {}
         self.methods = {}
@@ -44,11 +45,18 @@ class Declarations(BaseModule):
     def detect_for_loop_declaration(self, line: str):
         self.detect_declaration(line, 'for\\s+({0})\\s+in', self.for_loops, 'i')
 
+    def detect_modules(self, line: str):
+        if 'from' in line and 'import' in line:
+            modules = line.split('import')[1].split(',')
+            for module in modules:
+                self.detect_declaration(module, '({0})', self.modules, 'module')
+
     def process(self, line: str):
         self.detect_variable_declaration(line)
         self.detect_class_declaration(line)
         self.detect_method_declaration(line)
         self.detect_for_loop_declaration(line)
+        self.detect_modules(line)
 
         collections = [self.variables, self.classes, self.methods, self.for_loops]
         for collection in collections:
