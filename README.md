@@ -4,9 +4,6 @@ Deobfuscate obfuscated python files.
 ## Supported obfuscators
 * [Intensio Obfuscator](https://github.com/Hnfull/Intensio-Obfuscator) (1.0.3)
 
-## Screenshots
-![intensio example](https://i.imgur.com/ZoGcGmp.png)
-
 ## Installation
 Requires python 3.
 ```
@@ -41,3 +38,6 @@ intensio (int):
   --int-keep-loops                              keep obfuscated (for) loops
   --int-keep-exc                                keep obfuscated exceptions
 ```
+
+## Screenshots
+![intensio example](https://i.imgur.com/ZoGcGmp.png)
