@@ -1,5 +1,6 @@
 # PyDeobfuscator
-Deobfuscate obfuscated python files.
+Deobfuscate obfuscated python files. 
+This tool will remove junk, make code more readable & format it.
 
 ## Supported obfuscators
 * [Intensio Obfuscator](https://github.com/Hnfull/Intensio-Obfuscator) (1.0.3)
