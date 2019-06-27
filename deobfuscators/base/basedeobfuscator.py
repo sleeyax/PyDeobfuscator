@@ -18,5 +18,5 @@ class BaseDeobfuscator(ABC):
         return getattr(self.arguments_parsed, arg_name)
 
     @abstractmethod
-    def deobfuscate(self, input_file: str, output_file: str):
+    def deobfuscate(self, io: dict):
         pass

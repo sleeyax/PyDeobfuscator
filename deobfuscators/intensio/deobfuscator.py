@@ -26,23 +26,24 @@ class IntensioDeobfuscator(BaseDeobfuscator):
         if not self.get_argument_value('keep-vars'):
             modules.extend([
                 Variable(), Class(), Method(),
-                Module(), Loop(), Except(),
-                Argument()
+                Loop(), Except(),
+                # Argument(), Module()
             ])
             pass
         return modules
 
-    def deobfuscate(self, input_file, output_file):
-        modules = self.load_modules()
-        with open(input_file, 'r') as input:
-            with open(output_file, 'w') as output:
-                for line in input:
-                    line = line.rstrip('\n')
-                    for module in modules:
-                        line = module.process(line)
-                        if line is None:
-                            break
-                    if line is not None:
-                        output.write(line + '\n')
+    def deobfuscate(self, io):
+        for input_file, output_file in io.items():
+            modules = self.load_modules()
+            with open(input_file, 'r') as input:
+                with open(output_file, 'w') as output:
+                    for line in input:
+                        line = line.rstrip('\n')
+                        for m in modules:
+                            line = m.process(line)
+                            if line is None:
+                                break
+                        if line is not None:
+                            output.write(line + '\n')
 
-        info('{0} -> {1}'.format(input_file, output_file))
+            info('{0} -> {1}'.format(input_file, output_file))

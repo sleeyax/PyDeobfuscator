@@ -21,6 +21,8 @@ deobfuscator = next(d for d in deobfuscators if d.name == args.deobfuscator)
 info('deobfuscating files using {0} deobfuscator...'.format(deobfuscator.name))
 deobfuscator.arguments_parsed = args
 
+# amp input files to output files
+io = {}
 for input_file in input_files:
     output_file = input_file.replace(args.input, args.output)
 
@@ -29,4 +31,6 @@ for input_file in input_files:
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    deobfuscator.deobfuscate(input_file, output_file)
+    io[input_file] = output_file
+
+deobfuscator.deobfuscate(io)
