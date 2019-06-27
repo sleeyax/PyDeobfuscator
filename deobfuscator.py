@@ -3,9 +3,19 @@ import sys
 import glob
 from loader import args
 from modules import deobfuscators
-from logger import error, info, debug
+from logger import error, info, debug, header
 
-debug(args)
+print("""
+  _____       _____             _      __                     _             
+ |  __ \     |  __ \           | |    / _|                   | |            
+ | |__) |   _| |  | | ___  ___ | |__ | |_ _   _ ___  ___ __ _| |_ ___  _ __ 
+ |  ___/ | | | |  | |/ _ \/ _ \| '_ \|  _| | | / __|/ __/ _` | __/ _ \| '__|
+ | |   | |_| | |__| |  __/ (_) | |_) | | | |_| \__ \ (_| (_| | || (_) | |   
+ |_|    \__, |_____/ \___|\___/|_.__/|_|  \__,_|___/\___\__,_|\__\___/|_|   
+         __/ |                                                              
+        |___/                                                               
+
+""")
 
 # exit if input file or directory doesn't exist
 if not os.path.exists(args.input):
@@ -18,7 +28,7 @@ input_files = [f for f in glob.glob('{0}/**/*.py'.format(args.input.rstrip('/'))
     else [args.input]
 
 deobfuscator = next(d for d in deobfuscators if d.name == args.deobfuscator)
-info('deobfuscating files using {0} deobfuscator...'.format(deobfuscator.name))
+header('> using {0} deobfuscator <'.format(deobfuscator.name))
 deobfuscator.arguments_parsed = args
 
 # amp input files to output files
