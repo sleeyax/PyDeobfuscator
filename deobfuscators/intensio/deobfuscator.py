@@ -14,22 +14,32 @@ class IntensioDeobfuscator(BaseDeobfuscator):
 
     def set_arguments(self):
         self.add_argument('--keep-padding', help='do not remove padding', action='store_true', default=False)
-        self.add_argument('--keep-vars', help='keep obfuscated variable names', action='store_true', default=False)
+        self.add_argument('--keep-classes', help='keep obfuscated classes', action='store_true', default=False)
+        self.add_argument('--keep-vars', help='keep obfuscated variables', action='store_true', default=False)
+        self.add_argument('--keep-methods', help='keep obfuscated methods', action='store_true', default=False)
+        self.add_argument('--keep-loops', help='keep obfuscated (for) loops', action='store_true', default=False)
+        self.add_argument('--keep-exc', help='keep obfuscated exceptions', action='store_true', default=False)
 
     def load_modules(self):
         modules = []
         if not self.get_argument_value('keep-padding'):
             modules.append(Padding())
 
-        # TODO: add options to exclude classes, methods, ...
-        # (--keep-classes, --keep-methods)
+        if not self.get_argument_value('keep-classes'):
+            modules.append(Class())
+
         if not self.get_argument_value('keep-vars'):
-            modules.extend([
-                Variable(), Class(), Method(),
-                Loop(), Except(),
-                # Argument(), Module() #TODO: deobfuscate imports (modules & method args)
-            ])
-            pass
+            modules.append(Variable())
+
+        if not self.get_argument_value('keep-methods'):
+            modules.append(Method())
+
+        if not self.get_argument_value('keep-loops'):
+            modules.append(Loop())
+
+        if not self.get_argument_value('keep-exc'):
+            modules.append(Except())
+
         return modules
 
     def deobfuscate(self, io):
