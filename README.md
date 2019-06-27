@@ -40,4 +40,4 @@ intensio (int):
 ```
 
 ## Screenshots
-![intensio example](https://i.imgur.com/ZoGcGmp.png)
+![intensio example](https://i.imgur.com/K5PysF5.png)
