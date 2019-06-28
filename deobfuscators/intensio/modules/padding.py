@@ -1,6 +1,6 @@
 import re
 
-from .basemodule import BaseModule
+from deobfuscators.base.basemodule import BaseModule
 from ..helpers import build_length_levels_pattern
 
 

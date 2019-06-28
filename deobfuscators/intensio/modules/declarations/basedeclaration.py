@@ -1,5 +1,5 @@
 import re
-from ..basemodule import BaseModule
+from deobfuscators.base.basemodule import BaseModule
 from deobfuscators.intensio.helpers import build_length_levels_pattern
 from abc import ABC, abstractmethod
 
