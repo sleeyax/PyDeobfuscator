@@ -1,3 +1,3 @@
 from deobfuscators import *
 
-deobfuscators = [IntensioDeobfuscator()]
+deobfuscators = [IntensioDeobfuscator(), PyminifierDeobfuscator()]
