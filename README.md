@@ -5,6 +5,7 @@ This tool will remove junk, reformat code & make it more readable.
 ## Supported obfuscators
 * [Intensio Obfuscator](https://github.com/Hnfull/Intensio-Obfuscator) (1.0.3)
 * [pyminifier](https://github.com/liftoff/pyminifier) (2.1)
+
 ## Installation
 Requires python 3.
 ```
@@ -19,7 +20,8 @@ usage: deobfuscator.py [-h] -i [file | dir] -o [file | dir] -d
                        [{intensio,pyminifier}] [--int-keep-padding]
                        [--int-keep-classes] [--int-keep-vars]
                        [--int-keep-methods] [--int-keep-loops]
-                       [--int-keep-exc] [--min-use-tabs]
+                       [--int-keep-exc] [--min-no-unminify] [--min-use-tabs]
+                       [--min-decompress [{bzip2,gzip,lzma}]]
 
 Python Deobfuscator
 
@@ -44,8 +46,10 @@ intensio (int):
 pyminifier (min):
   deobfuscate files obfuscated, minified or compressed by pyminifier
 
+  --min-no-unminify                               do not reformat file(s)
   --min-use-tabs                                  use tabs for indentation
                                                   instead of spaces
+  --min-decompress [{bzip2,gzip,lzma}]            decompress file(s)
 ```
 
 ## Screenshots
