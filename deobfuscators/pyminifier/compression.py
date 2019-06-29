@@ -4,15 +4,11 @@ import base64
 import bz2
 import zlib
 import lzma
-
-
-def reaf_file_contents(file):
-    with open(file, 'r') as f:
-        return f.read()
+from helpers import read_file_contents
 
 
 def decompress(input_file: str, method: str):
-    content = reaf_file_contents(input_file)
+    content = read_file_contents(input_file)
 
     if 'exec' not in content and 'decompress' not in content:
         return False
