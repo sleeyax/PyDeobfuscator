@@ -1,1 +1,1 @@
-from .deobfuscator import PyminifierDeobfuscator
+from .main import PyminifierDeobfuscator
