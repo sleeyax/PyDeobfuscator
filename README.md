@@ -16,12 +16,12 @@ $ cd PyDeobfuscator
 ## Usage
 ```
 $ python deobfuscator.py --help
-usage: deobfuscator.py [-h] -i [file | dir] -o [file | dir] -d
+usage: deobfuscator.py [-h] -i [file | dir] -o [file | dir] [-v] -d
                        [{intensio,pyminifier}] [--int-keep-padding]
                        [--int-keep-classes] [--int-keep-vars]
                        [--int-keep-methods] [--int-keep-loops]
-                       [--int-keep-exc] [--min-no-unminify] [--min-use-tabs]
-                       [--min-decompress [{bzip2,gzip,lzma}]]
+                       [--int-keep-exc] [--min-no-unminify] [--min-no-deobf]
+                       [--min-use-tabs] [--min-decompress [{bzip2,gzip,lzma}]]
 
 Python Deobfuscator
 
@@ -30,6 +30,8 @@ optional arguments:
                                                   exit
   -i [file | dir], --input [file | dir]           input file or directory
   -o [file | dir], --output [file | dir]          output file or directory
+  -v, --version                                   show program's version
+                                                  number and exit
   -d [{intensio,pyminifier}], --deobfuscator [{intensio,pyminifier}]
                                                   deobfuscator to use
 
@@ -47,6 +49,7 @@ pyminifier (min):
   deobfuscate files obfuscated, minified or compressed by pyminifier
 
   --min-no-unminify                               do not reformat file(s)
+  --min-no-deobf                                  do not deobfuscate file(s)
   --min-use-tabs                                  use tabs for indentation
                                                   instead of spaces
   --min-decompress [{bzip2,gzip,lzma}]            decompress file(s)
@@ -57,7 +60,7 @@ pyminifier (min):
 
 ## Examples
 ## Intensio
-Obfucated:
+Obfuscated:
 ```
 nIkikkWWQKpFDuXtzNqRgtWHdMqYhlSH = "Danny"
 dAIIhsSOSuNWCeGuTOSnzZDTFJatdlFq = 'xnmsdFMOkFysdHbwonuGIiZPcwHRXdYk'
