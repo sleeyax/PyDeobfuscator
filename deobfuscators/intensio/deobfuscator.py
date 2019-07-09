@@ -1,7 +1,7 @@
 from deobfuscators import BaseDeobfuscator
 from .modules import Padding
 from .modules.declarations import *
-from logger import info
+from logger import info, show_progress
 
 
 class IntensioDeobfuscator(BaseDeobfuscator):
@@ -42,13 +42,7 @@ class IntensioDeobfuscator(BaseDeobfuscator):
 
         return modules
 
-    def pretty_print(self, i, o, length):
-        info('{0}{2} -> {1}'.format(i, o, ' ' * (length - len(i))))
-
     def deobfuscate(self, io):
-        # get length of longest input file path
-        longest_path_length = len(max(io.keys(), key=len))
-
         for input_file, output_file in io.items():
             modules = self.load_modules()
             with open(input_file, 'r') as i, open(output_file, 'w') as o:
@@ -61,4 +55,4 @@ class IntensioDeobfuscator(BaseDeobfuscator):
                     if line is not None:
                         o.write(line + '\n')
 
-            self.pretty_print(input_file, output_file, longest_path_length)
+            show_progress(input_file, output_file, io.keys())

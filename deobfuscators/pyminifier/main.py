@@ -1,7 +1,7 @@
 from deobfuscators import BaseDeobfuscator
 from .deobfuscator import Deobfuscator
 from .unminifier import Unminifier
-from logger import info
+from logger import info, show_progress
 from .compression import decompress
 
 
@@ -54,4 +54,4 @@ class PyminifierDeobfuscator(BaseDeobfuscator):
                     if line is not None:
                         o.write(line + '\n')
 
-            info('{0} to {1}'.format(input_file, output_file))
+            show_progress(input_file, output_file, io.keys())
