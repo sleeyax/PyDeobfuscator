@@ -1,5 +1,5 @@
 import re
-from deobfuscators.base.basemodule import BaseModule
+from modules.basemodule import BaseModule
 
 
 class Unminifier(BaseModule):

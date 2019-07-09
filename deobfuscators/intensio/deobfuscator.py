@@ -1,7 +1,7 @@
 from deobfuscators import BaseDeobfuscator
-from .modules import Padding
-from .modules.declarations import *
-from logger import info, show_progress
+from .padding import Padding
+from modules.declarations import *
+from logger import show_progress
 
 
 class IntensioDeobfuscator(BaseDeobfuscator):

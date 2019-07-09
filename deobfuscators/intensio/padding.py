@@ -1,7 +1,6 @@
 import re
-
-from deobfuscators.base.basemodule import BaseModule
-from ..helpers import build_length_levels_pattern
+from modules.basemodule import BaseModule
+from deobfuscators.intensio.helpers import build_length_levels_pattern
 
 
 class Padding(BaseModule):
