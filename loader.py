@@ -1,5 +1,5 @@
 import argparse
-from modules import deobfuscators
+from loaded import deobfuscators
 from helpers import prepend_argument
 
 argparser = argparse.ArgumentParser(

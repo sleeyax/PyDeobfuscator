@@ -2,7 +2,7 @@ import os
 import sys
 import glob
 from loader import args
-from modules import deobfuscators
+from loaded import deobfuscators
 from logger import error, info, debug, header
 
 print("""\033[92m
