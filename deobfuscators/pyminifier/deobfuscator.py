@@ -160,12 +160,11 @@ class Deobfuscator(BaseDeclaration):
         ]
 
     def assigns_builtin_keyword(self, line):
-        # check if line contains a builtin
-        if not any(b in line for b in self.builtins):
-            return False
-
         match = re.match(r"(.+)=([^\"|'].+)", line)
         if match and line.count('=') == 1:
+            if not any(b == match.group(2) for b in self.builtins):
+                return False
+
             self.keywords[match.group(1)] = match.group(2)
             return True
 
