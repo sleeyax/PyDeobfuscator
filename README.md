@@ -7,7 +7,7 @@ This tool will remove junk, reformat code & make it more readable.
 * [pyminifier](https://github.com/liftoff/pyminifier) (2.1)
 
 ## Installation
-Requires python 3.
+Requires python 3.5+
 ```
 $ git clone https://github.com/sleeyax/PyDeobfuscator.git
 $ cd PyDeobfuscator
@@ -56,7 +56,7 @@ pyminifier (min):
 ```
 
 ## Screenshots
-![intensio example](https://i.imgur.com/K5PysF5.png)
+![intensio example](https://i.imgur.com/G5osnnm.png)
 
 ## Examples
 ## Intensio
@@ -102,4 +102,17 @@ Deobfuscated:
 var1 = "Danny"
 print("Hello,  " + var1)
 ```
-See [examples](https://github.com/sleeyax/PyDeobfuscator/tree/master/examples) for more, in-depth deobfuscation results.
+## Pyminifier
+Compressed:
+```
+import bz2, base64
+exec(bz2.decompress(base64.b64decode('QlpoOTFBWSZTWYxMdf4AABDbgAAQcOgAEoCAK2XfICAAVFaE8pg1MBDNCJk1NNonqaG1NqDSCdHsDpYzWtV8hMEMQIr3YI68EyCTFh8LIYwKipdh8G0OKQBFwT8S6EhPgu5IpwoSEYmOv8A=')))
+# Created by pyminifier (https://github.com/liftoff/pyminifier)
+```
+Decompressed:
+```
+color=input("What's your favorite color? : ")
+print(color+" is a nice choice!")
+```
+
+See [examples](https://github.com/sleeyax/PyDeobfuscator/tree/master/examples) for more deobfuscation results
