@@ -1,8 +1,8 @@
 import re
-from modules.basemodule import BaseModule
+from modules.declarations.basedeclaration import BaseDeclaration
 
 
-class Deobfuscator(BaseModule):
+class Deobfuscator(BaseDeclaration):
     def __init__(self):
         self.variables = {}
         self.keywords = {}
@@ -159,14 +159,6 @@ class Deobfuscator(BaseModule):
             'zip'
         ]
 
-    def detect_variable_declaration(self, line):
-        match = re.match(r"(.+)=(?:\"|').+(?:\"|')", line)
-        if match and line.count('=') == 1:
-            count = len(self.variables.keys())
-            key = 'var' + str(count + 1)
-            if key not in self.variables.keys():
-                self.variables[key] = match.group(1)
-
     def assigns_builtin_keyword(self, line):
         # check if line contains a builtin
         if not any(b in line for b in self.builtins):
@@ -180,16 +172,16 @@ class Deobfuscator(BaseModule):
         return False
 
     def process(self, line: str):
-        line_stripped = line.strip()
 
-        self.detect_variable_declaration(line_stripped)
+        self.detect_declaration(line, r"([^=]+)=(?:\"|').+(?:\"|')", self.variables, 'var')
+
         # if a keyword is assigned to a variable (a=print, b=ImportError, ...), store it and remove the line from output
-        if self.assigns_builtin_keyword(line_stripped):
+        if self.assigns_builtin_keyword(line.strip()):
             return None
 
         # replace variable names
         for key, value in self.variables.items():
-            line = line.replace(value, key)
+            line = line.replace(key, value)
 
         # replace variables with keywords
         for key, value in self.keywords.items():
