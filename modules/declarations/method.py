@@ -1,4 +1,5 @@
 from .basedeclaration import BaseDeclaration
+from ..patterns import DEF
 
 
 class Method(BaseDeclaration):
@@ -7,7 +8,7 @@ class Method(BaseDeclaration):
         self.methods = {}
 
     def process(self, line):
-        self.detect_declaration(line, 'def\\s+({0})', self.methods, 'method')
+        self.detect_declaration(line, DEF, self.methods, 'method')
         for key, value in self.methods.items():
             line = line.replace(key, value)
         return line

@@ -1,4 +1,3 @@
-from .argument import Argument
 from .class_ import Class
 from .except_ import Except
 from .loop import Loop

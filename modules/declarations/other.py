@@ -3,15 +3,19 @@ import re
 
 
 class Other(BaseDeclaration):
-    def __init__(self):
+    def __init__(self, pattern):
         super().__init__()
         self.others = {}
+        self.pattern = pattern
 
     def process(self, line):
-        matches = re.findall('({0})'.format(self.characters_to_match), line)
+        pattern = '(' + self.pattern + ')'
+        matches = re.findall(pattern, line)
+
         for match in matches:
-            self.detect_declaration(match, '({0})', self.others, 'other')
+            self.detect_declaration(match, pattern, self.others, 'other')
 
         for key, value in self.others.items():
             line = line.replace(key, value)
+
         return line

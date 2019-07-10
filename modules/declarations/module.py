@@ -1,4 +1,5 @@
 from .basedeclaration import BaseDeclaration
+from ..patterns import IDENTIFIER
 
 
 class Module(BaseDeclaration):
@@ -10,8 +11,9 @@ class Module(BaseDeclaration):
         if 'from' in line and 'import' in line:
             modules = line.split('import')[1].split(',')
             for module in modules:
-                self.detect_declaration(module, '({0})', self.modules, 'module')
+                self.detect_declaration(module, '({0})'.format(IDENTIFIER), self.modules, 'module')
 
         for key, value in self.modules.items():
             line = line.replace(key, value)
+
         return line
