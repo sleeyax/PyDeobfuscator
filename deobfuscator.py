@@ -3,7 +3,7 @@ import sys
 import glob
 from loader import args
 from loaded import deobfuscators
-from logger import error, info, debug, header
+from logger import error, header
 
 print("""\033[92m
   _____       _____             _      __                     _             
@@ -29,9 +29,9 @@ input_files = [f for f in glob.glob('{0}/**/*.py'.format(args.input.rstrip('/'))
 
 deobfuscator = next(d for d in deobfuscators if d.name == args.deobfuscator)
 header(' using \033[94m{0}\033[0m deobfuscator '.format(deobfuscator.name))
-deobfuscator.arguments_parsed = args
+deobfuscator.set_parsed_arguments(args)
 
-# amp input files to output files
+# map input files to output files
 io = {}
 for input_file in input_files:
     output_file = input_file.replace(args.input, args.output)

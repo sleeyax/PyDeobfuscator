@@ -9,7 +9,7 @@ class PyminifierDeobfuscator(BaseDeobfuscator):
     def __init__(self):
         super().__init__()
         self.name = 'pyminifier'
-        self.argument_id = 'min'
+        self.id = 'min'
         self.description = 'deobfuscate files obfuscated, minified or compressed by pyminifier'
         self.add_argument('--no-unminify', help='do not reformat file(s)', action='store_true', default=False)
         self.add_argument('--no-deobf', help='do not deobfuscate file(s)', action='store_true', default=False)

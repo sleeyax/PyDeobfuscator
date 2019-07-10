@@ -1,6 +1,5 @@
 import argparse
 from loaded import deobfuscators
-from helpers import prepend_argument
 
 argparser = argparse.ArgumentParser(
     description='Python Deobfuscator',
@@ -12,8 +11,19 @@ argparser.add_argument('-v', '--version', action='version', version='beta')
 argparser.add_argument('-d', '--deobfuscator', nargs='?', required=True, help='deobfuscator to use', choices=['intensio', 'pyminifier'])
 
 
+def _prepend_argument(argument: str, to_prepend: str):
+    """
+    Prepend as string to an argument
+    :param argument:
+    :param to_prepend:
+    :return:
+    """
+    return '--{0}-{1}'.format(to_prepend, argument[2:]) if argument[:2] == '--' \
+        else '-{0}-{1}'.format(to_prepend, argument[1:])
+
+
 for deobfuscator in deobfuscators:
-    group = argparser.add_argument_group('{0} ({1})'.format(deobfuscator.name, deobfuscator.argument_id), deobfuscator.description)
+    group = argparser.add_argument_group('{0} ({1})'.format(deobfuscator.name, deobfuscator.id), deobfuscator.description)
 
     for arg in deobfuscator.arguments:
         parameters, options = arg
@@ -21,7 +31,7 @@ for deobfuscator in deobfuscators:
         # Make sure parameters are unique by prepending the argument id
         parameters_list = list(parameters)
         for i in range(0, len(parameters_list)):
-            parameters_list[i] = prepend_argument(parameters_list[i], deobfuscator.argument_id)
+            parameters_list[i] = _prepend_argument(parameters_list[i], deobfuscator.id)
 
         group.add_argument(*tuple(parameters_list), **options)
 

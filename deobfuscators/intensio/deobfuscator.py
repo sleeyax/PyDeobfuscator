@@ -8,7 +8,7 @@ class IntensioDeobfuscator(BaseDeobfuscator):
     def __init__(self):
         super().__init__()
         self.name = 'intensio'
-        self.argument_id = 'int'
+        self.id = 'int'
         self.description = 'deobfuscate files obfuscated by Intensio Obfuscator'
         self.set_arguments()
 
