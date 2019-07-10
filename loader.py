@@ -7,7 +7,7 @@ argparser = argparse.ArgumentParser(
 )
 argparser.add_argument('-i', '--input', nargs='?', required=True, help='input file or directory', metavar='file | dir')
 argparser.add_argument('-o', '--output', nargs='?', required=True, help='output file or directory', metavar='file | dir')
-argparser.add_argument('-v', '--version', action='version', version='beta')
+argparser.add_argument('-v', '--version', action='version', version='0.0.1')
 argparser.add_argument('-d', '--deobfuscator', nargs='?', required=True, help='deobfuscator to use', choices=['intensio', 'pyminifier'])
 
 
