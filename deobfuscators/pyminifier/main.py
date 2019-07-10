@@ -38,20 +38,4 @@ class PyminifierDeobfuscator(BaseDeobfuscator):
         # decompress input files first
         self.decompress(io.keys())
 
-        # load modules
-        modules = self.load_modules()
-
-        for input_file, output_file in io.items():
-            with open(input_file, 'r') as i, open(output_file, 'w') as o:
-                for line in i:
-                    line = line.rstrip('\n')
-
-                    for module in modules:
-                        line = module.process(line)
-                        if line is None:
-                            break
-
-                    if line is not None:
-                        o.write(line + '\n')
-
-            show_progress(input_file, output_file, io.keys())
+        self.deobfuscate_using_modules(io, self.load_modules())
