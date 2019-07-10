@@ -7,7 +7,6 @@ try:
     import mystificate
 except ImportError:
     print("Warning: Dark voodoo may be unreliable.")
-ATLAS=False 
 class Foo(object):
     def __init__(self,*args,**kwargs):
         pass
