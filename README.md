@@ -1,4 +1,6 @@
 # PyDeobfuscator
+**Currenlty unmaintained untill further notice** <br>
+
 Deobfuscate obfuscated python files. 
 This tool will remove junk, reformat code & make it more readable.
 
